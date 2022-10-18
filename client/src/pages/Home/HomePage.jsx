@@ -2,7 +2,7 @@
 
 import React from "react";
 import styles from "./Home.module.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Card from "../../components/shared/Card/Card";
 import Button from "../../components/shared/Button/Button";
 
@@ -14,6 +14,12 @@ const HomePage = () => {
     marginLeft: "10px",
   };
 
+  const navigate = useNavigate();
+
+  const ButtonClickHandler = async () => {
+    navigate("/register");
+  };
+
   return (
     <div className={styles.cardWrapper}>
       <Card title="Welcome to Kosha!" icon="logo">
@@ -23,7 +29,7 @@ const HomePage = () => {
           nothing breaks
         </p>
         <div>
-          <Button text="Get your userName" />
+          <Button onClick={ButtonClickHandler} text="Get your userName" />
         </div>
         <div className={styles.signinWrapper}>
           <span className={styles.hasInvite}>Have an invite text?</span>
