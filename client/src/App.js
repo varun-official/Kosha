@@ -9,7 +9,7 @@ import Activate from "./pages/Activate/Activate";
 import Authenticate from "./pages/Authenticate/Authenticate";
 import Rooms from "./pages/Rooms/Rooms";
 
-const isAuth = true;
+const isAuth = false;
 const user = {
   activated: false,
 };

@@ -1,10 +1,32 @@
 /** @format */
 
-import React from "react";
+import React, { useState } from "react";
+import Email from "./Email/Email";
+import Phone from "./Phone/Phone";
 import styles from "./StepPhoneEmail.module.css";
 
+const StepPhoneEmailStep = {
+  Phone: Phone,
+  Email: Email,
+};
+
 const StepPhoneEmail = () => {
-  return <div>StepPhoneEmail</div>;
+  const [RenderType, setRenderType] = useState("Phone");
+  const RenderComponent = StepPhoneEmailStep[RenderType];
+
+  return (
+    <>
+      <div className={styles.cardWrapper}>
+        <div>
+          <div className={styles.buttonWraper}>
+            <button onClick={() => setRenderType("Phone")}>Phone</button>
+            <button onClick={() => setRenderType("Email")}>Email</button>
+          </div>
+          <RenderComponent></RenderComponent>
+        </div>
+      </div>
+    </>
+  );
 };
 
 export default StepPhoneEmail;

@@ -17,7 +17,7 @@ const HomePage = () => {
   const navigate = useNavigate();
 
   const ButtonClickHandler = async () => {
-    navigate("/register");
+    navigate("/authenticate");
   };
 
   return (
@@ -29,13 +29,10 @@ const HomePage = () => {
           nothing breaks
         </p>
         <div>
-          <Button onClick={ButtonClickHandler} text="Get your userName" />
+          <Button onClick={ButtonClickHandler} text="Lets Go" />
         </div>
         <div className={styles.signinWrapper}>
           <span className={styles.hasInvite}>Have an invite text?</span>
-          <Link style={signinLiskStyle} to="/authenticate">
-            Sign in
-          </Link>
         </div>
       </Card>
     </div>
