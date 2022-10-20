@@ -33,7 +33,7 @@ const HomePage = () => {
         </div>
         <div className={styles.signinWrapper}>
           <span className={styles.hasInvite}>Have an invite text?</span>
-          <Link style={signinLiskStyle} to="/login">
+          <Link style={signinLiskStyle} to="/authenticate">
             Sign in
           </Link>
         </div>
