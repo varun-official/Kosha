@@ -1,7 +1,7 @@
 /** @format */
 
 import React, { useState } from "react";
-import styles from "./Authenticate.module.css";
+// import styles from "./Authenticate.module.css";
 import StepPhoneEmail from "../Steps/StepPhoneEmail/StepPhoneEmail";
 import StepOtp from "../Steps/StepOtp/StepOtp";
 
@@ -18,11 +18,7 @@ const Authenticate = () => {
     setStep(step + 1);
   };
 
-  return (
-    <div>
-      <RenderStep onNext={onNext} />
-    </div>
-  );
+  return <RenderStep onNext={onNext} />;
 };
 
 export default Authenticate;

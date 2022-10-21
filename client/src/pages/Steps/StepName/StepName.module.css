@@ -1,9 +1,11 @@
-.cardWrapper{
-display: flex;
-align-items: center;
-justify-content: center;
-margin-top:6 rem;
-}
-.buttonWraper{
+/** @format */
 
+.cardWrapp {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 6rem;
+}
+.buttonWraper {
+  display: flex;
 }

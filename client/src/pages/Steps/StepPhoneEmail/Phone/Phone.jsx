@@ -6,13 +6,11 @@ import Button from "../../../../components/shared/Button/Button";
 
 const Phone = () => {
   return (
-    <div>
-      <Card title="Welcome to Kosha!" icon="logo">
-        <div>
-          <Button text="Next" />
-        </div>
-      </Card>
-    </div>
+    <Card title="Enter your Phone Number" icon="phone">
+      <div>
+        <Button text="Next" />
+      </div>
+    </Card>
   );
 };
 

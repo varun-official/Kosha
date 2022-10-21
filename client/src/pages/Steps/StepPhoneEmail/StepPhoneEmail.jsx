@@ -15,17 +15,15 @@ const StepPhoneEmail = () => {
   const RenderComponent = StepPhoneEmailStep[RenderType];
 
   return (
-    <>
-      <div className={styles.cardWrapper}>
-        <div>
-          <div className={styles.buttonWraper}>
-            <button onClick={() => setRenderType("Phone")}>Phone</button>
-            <button onClick={() => setRenderType("Email")}>Email</button>
-          </div>
-          <RenderComponent></RenderComponent>
+    <div className={styles.cardWrapp}>
+      <div>
+        <div className={styles.buttonWraper}>
+          <button onClick={() => setRenderType("Phone")}>Phone</button>
+          <button onClick={() => setRenderType("Email")}>Email</button>
         </div>
+        <RenderComponent></RenderComponent>
       </div>
-    </>
+    </div>
   );
 };
 
