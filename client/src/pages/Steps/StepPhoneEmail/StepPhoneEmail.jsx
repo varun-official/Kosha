@@ -18,8 +18,22 @@ const StepPhoneEmail = () => {
     <div className={styles.cardWrapp}>
       <div>
         <div className={styles.buttonWraper}>
-          <button onClick={() => setRenderType("Phone")}>Phone</button>
-          <button onClick={() => setRenderType("Email")}>Email</button>
+          <button
+            className={`${styles.tabButton} ${
+              RenderType == "Phone" ? styles.active : ""
+            } `}
+            onClick={() => setRenderType("Phone")}
+          >
+            <img src="/images/phone-white.png" alt="phone" />
+          </button>
+          <button
+            className={`${styles.tabButton} ${
+              RenderType == "Email" ? styles.active : ""
+            } `}
+            onClick={() => setRenderType("Email")}
+          >
+            <img src="/images/mail-white.png" alt="email" />
+          </button>
         </div>
         <RenderComponent></RenderComponent>
       </div>
