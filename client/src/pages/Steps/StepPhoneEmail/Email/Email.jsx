@@ -7,7 +7,7 @@ import Textinput from "../../../../components/shared/Textinput/Textinput";
 
 import styles from "../StepPhoneEmail.module.css";
 
-const Email = () => {
+const Email = ({ onNext }) => {
   const [emailid, setEmailid] = useState("");
 
   return (
@@ -15,7 +15,7 @@ const Email = () => {
       <Textinput value={emailid} onChange={(e) => setEmailid(e.target.value)} />
       <div>
         <div className={styles.actionButtonWrapper}>
-          <Button text="Next" />
+          <Button text="Next" onClick={onNext} />
         </div>
         <p className={styles.bottomParagrap}>
           By entering your email, you’re agreeing to our Terms of Service and

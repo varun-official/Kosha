@@ -10,7 +10,7 @@ const StepPhoneEmailStep = {
   Email: Email,
 };
 
-const StepPhoneEmail = () => {
+const StepPhoneEmail = ({ onNext }) => {
   const [RenderType, setRenderType] = useState("Phone");
   const RenderComponent = StepPhoneEmailStep[RenderType];
 
@@ -35,7 +35,7 @@ const StepPhoneEmail = () => {
             <img src="/images/mail-white.png" alt="email" />
           </button>
         </div>
-        <RenderComponent></RenderComponent>
+        <RenderComponent onNext={onNext}></RenderComponent>
       </div>
     </div>
   );

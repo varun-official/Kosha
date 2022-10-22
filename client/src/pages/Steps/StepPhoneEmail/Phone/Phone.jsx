@@ -6,7 +6,7 @@ import Button from "../../../../components/shared/Button/Button";
 import Textinput from "../../../../components/shared/Textinput/Textinput";
 import styles from "../StepPhoneEmail.module.css";
 
-const Phone = () => {
+const Phone = ({ onNext }) => {
   const [phoneNumber, setPhoneNumber] = useState("");
 
   return (
@@ -17,7 +17,7 @@ const Phone = () => {
       />
       <div>
         <div className={styles.actionButtonWrapper}>
-          <Button text="Next" />
+          <Button text="Next" onClick={onNext} />
         </div>
         <p className={styles.bottomParagrap}>
           By entering your number, you’re agreeing to our Terms of Service and

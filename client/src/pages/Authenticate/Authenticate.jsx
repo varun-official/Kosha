@@ -11,7 +11,7 @@ const steps = {
 };
 
 const Authenticate = () => {
-  const [step, setStep] = useState(2);
+  const [step, setStep] = useState(1);
   const RenderStep = steps[step];
 
   const onNext = async () => {
