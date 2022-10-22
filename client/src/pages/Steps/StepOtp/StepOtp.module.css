@@ -1,0 +1,23 @@
+/** @format */
+
+/* .cardWrapper {
+    composes: cardWrapper from '../../../App.module.css';
+} */
+
+.cardWrapp {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 6rem;
+}
+
+.actionButtonWrapper {
+  margin-top: 40px;
+}
+
+.bottomParagrap {
+  color: #c4c5c5;
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 20px;
+}

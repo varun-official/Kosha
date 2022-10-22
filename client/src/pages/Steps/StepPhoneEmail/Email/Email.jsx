@@ -18,7 +18,7 @@ const Email = () => {
           <Button text="Next" />
         </div>
         <p className={styles.bottomParagrap}>
-          By entering your number, you’re agreeing to our Terms of Service and
+          By entering your email, you’re agreeing to our Terms of Service and
           Privacy Policy. Thanks!
         </p>
       </div>
