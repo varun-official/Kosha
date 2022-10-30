@@ -33,7 +33,7 @@ class AuthController {
   async verifyOtp(req, res) {
     const { otp, hash, phone } = req.body;
 
-    if (otp || hash || phone) {
+    if (!otp || !hash || !phone) {
       res.status(400).json({ message: "All required fields are required" });
     }
 
@@ -47,24 +47,33 @@ class AuthController {
 
     const isValid = OtpService.verifyOtp(data, hashOtp);
 
-    if(!isValid) {
-      res.status(400).json({message: 'Invalid OTP'})
-    }  
+    if (!isValid) {
+      res.status(400).json({ message: "Invalid OTP" });
+    }
 
     let user;
- 
+
     try {
-      user = UserService.findUser({phone: phone})
-      if(!user){
-        user=await UserService.createUser({phone: phone})
+      user = await UserService.findUser({ phone: phone });
+      if (!user) {
+        user = await UserService.createUser({ phone: phone });
       }
     } catch (err) {
       console.log(err);
-      res.status(500).json({message: "DB error"});
+      res.status(500).json({ message: "DB error" });
     }
 
-    const {accessToken,refreshToken} = TokenService.generateToken();
+    const { accessToken, refreshToken } = await TokenService.generateToken({
+      _id: user._id,
+      activated: false,
+    });
 
+    res.cookie("refreshToken", refreshToken, {
+      maxAge: 1000 * 60 * 60 * 24 * 30,
+      httpOnly: true,
+    });
+
+    res.json({ accessToken: accessToken });
   }
 }
 
