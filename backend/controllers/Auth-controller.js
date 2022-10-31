@@ -20,10 +20,12 @@ class AuthController {
     const hashOtp = await HashService.hashOtp(data);
 
     try {
-      await OtpService.sendOtpBySms(phone, otp);
+      // TODO: sendotp by sms disabled
+      // await OtpService.sendOtpBySms(phone, otp);
       res.status(200).json({
         hash: `${hashOtp}.${validTill}`,
         phone: phone,
+        otp,
       });
     } catch (error) {
       res.status(500).json({ message: "Unable to send OTP" });
