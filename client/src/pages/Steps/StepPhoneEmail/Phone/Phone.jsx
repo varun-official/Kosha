@@ -5,15 +5,20 @@ import Card from "../../../../components/shared/Card/Card";
 import Button from "../../../../components/shared/Button/Button";
 import Textinput from "../../../../components/shared/Textinput/Textinput";
 import { sendOTP } from "../../../../http/index";
+import { useDispatch } from "react-redux";
+import { setOtp } from "../../../../store/AuthSlice";
+
 import styles from "../StepPhoneEmail.module.css";
 
 const Phone = ({ onNext }) => {
   const [phoneNumber, setPhoneNumber] = useState("");
+  const dispatch = useDispatch();
 
   const submit = async () => {
-    const res = await sendOTP({ phone: phoneNumber });
-    console.log(res.data);
-    // onNext();
+    const { data } = await sendOTP({ phone: phoneNumber });
+    console.log(data);
+    dispatch(setOtp({ phone: data.phone, hash: data.hash }));
+    onNext();
   };
 
   return (
