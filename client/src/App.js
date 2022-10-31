@@ -8,11 +8,12 @@ import Navbar from "./components/shared/Navbar/Navbar";
 import Activate from "./pages/Activate/Activate";
 import Authenticate from "./pages/Authenticate/Authenticate";
 import Rooms from "./pages/Rooms/Rooms";
+import { useSelector } from "react-redux";
 
-const isAuth = false;
-const user = {
-  activated: false,
-};
+// const isAuth = false;
+// const user = {
+//   activated: false,
+// };
 
 function App() {
   return (
@@ -60,6 +61,8 @@ function App() {
 }
 
 const GuestRoute = ({ children }) => {
+  const { isAuth } = useSelector((state) => state.auth);
+
   return isAuth ? (
     <Navigate
       to={{
@@ -72,6 +75,8 @@ const GuestRoute = ({ children }) => {
 };
 
 const SemiProtectedRoute = ({ children }) => {
+  const { isAuth, user } = useSelector((state) => state.auth);
+
   return !isAuth ? (
     <Navigate
       to={{
@@ -90,6 +95,8 @@ const SemiProtectedRoute = ({ children }) => {
 };
 
 const ProtectedRoute = ({ children }) => {
+  const { isAuth, user } = useSelector((state) => state.auth);
+
   return !isAuth ? (
     <Navigate
       to={{
