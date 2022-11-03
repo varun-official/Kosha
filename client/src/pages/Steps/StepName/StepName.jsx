@@ -6,24 +6,39 @@ import Card from "../../../components/shared/Card/Card";
 import Button from "../../../components/shared/Button/Button";
 import Textinput from "../../../components/shared/Textinput/Textinput";
 
-const StepName = ({ onNext }) => {
-  const [name, setName] = useState("");
+import { useDispatch, useSelector } from "react-redux";
+import { setName } from "../../../store/ActivateSlice";
 
-  const submit = async () => {};
+const StepName = ({ onNext }) => {
+  const { name } = useSelector((state) => state.activate);
+  const [fullname, setFullName] = useState(name);
+  const dispatch = useDispatch();
+
+  const submit = async () => {
+    if (!fullname) return;
+
+    dispatch(setName(fullname));
+    onNext();
+  };
 
   return (
     <>
-      <Card title="EWhat's your full name?" icon="goggle-emoji">
-        <Textinput value={name} onChange={(e) => setName(e.target.value)} />
-        <div>
-          <p className={styles.bottomParagrap}>
-            People use real names at Kosha
-          </p>
-          <div className={styles.actionButtonWrapper}>
-            <Button text="Next" onClick={submit} />
+      <div className={styles.cardWrapp}>
+        <Card title="What's your full name?" icon="goggle-emoji">
+          <Textinput
+            value={fullname}
+            onChange={(e) => setFullName(e.target.value)}
+          />
+          <div>
+            <p className={styles.bottomParagrap}>
+              People use real names at Kosha
+            </p>
+            <div className={styles.actionButtonWrapper}>
+              <Button text="Next" onClick={submit} />
+            </div>
           </div>
-        </div>
-      </Card>
+        </Card>
+      </div>
     </>
   );
 };
