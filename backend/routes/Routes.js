@@ -2,9 +2,11 @@
 
 const express = require("express");
 const router = express.Router();
-const authContoller = require("../controllers/Auth-controller");
+const authController = require("../controllers/Auth-controller");
+const activateController = require("../controllers/Activate-controller");
 
-router.post("/api/send-otp", authContoller.sendOtp);
-router.post("/api/verify-otp", authContoller.verifyOtp);
+router.post("/api/send-otp", authController.sendOtp);
+router.post("/api/verify-otp", authController.verifyOtp);
+router.post("/api/activate", activateController.activate);
 
 module.exports = router;
