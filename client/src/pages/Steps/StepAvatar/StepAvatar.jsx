@@ -6,6 +6,8 @@ import Card from "../../../components/shared/Card/Card";
 import Button from "../../../components/shared/Button/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { setAvathar } from "../../../store/ActivateSlice";
+import { setAuth } from "../../../store/AuthSlice";
+
 import { activate } from "../../../http/index";
 
 const StepAvatar = () => {
@@ -16,6 +18,9 @@ const StepAvatar = () => {
   const submit = async () => {
     try {
       const { data } = await activate({ name, avatar });
+      if (data.auth) {
+        dispatch(setAuth(data));
+      }
     } catch (error) {
       console.log(error);
     }
