@@ -16,7 +16,8 @@ const corsOptions = {
   credentials: true,
   origin: ["http://localhost:3000"],
 };
-
+app.use("/storage", express.static("storage"
+));
 app.use(cookieParser());
 app.use(cors(corsOptions));
 app.use(express.json({ limit: "8mb" }));
