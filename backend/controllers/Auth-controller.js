@@ -87,14 +87,23 @@ class AuthController {
 
     res.json({ auth: true, user: userDto });
   }
- 
-  async refresh(req,res)
-  {
+
+  async refresh(req, res) {
     //get refresh token from cookie
+    const { refreshToken: refreshTokenFromCookie } = req.cookies;
 
     //check if token is valid
-  }
+    let userData;
+    try {
+      userData = await tokenService.verifyRefreshToken(refreshTokenFromCookie);
+    } catch (err) {}
 
+    //check if token in the DB
+
+    //Generation new token
+
+    //response send
+  }
 }
 
 module.exports = new AuthController();
