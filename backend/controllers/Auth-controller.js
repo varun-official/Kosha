@@ -96,10 +96,24 @@ class AuthController {
     let userData;
     try {
       userData = await tokenService.verifyRefreshToken(refreshTokenFromCookie);
-    } catch (err) {}
+    } catch (err) {
+      res.status(401).json({"message":"Invalid Token!!"})
+    }
 
     //check if token in the DB
+    try{
+    const token = await tokenService.findRefreshToke(
+      userData._id,
+      refreshTokenFromCookie
+    );
 
+    if(!token){
+      return res.status(401).json({"message":"Invalid Token!!"})
+    }
+
+    }catch(err){
+      res.status(500).json({ message: "Internal Error" });
+    }
     //Generation new token
 
     //response send
