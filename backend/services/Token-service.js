@@ -43,6 +43,11 @@ class TokenService {
 
     return token;
   }
+
+  async  updateRefreshToken(userId,refreshToken)
+  {
+    return await refreshTokenModel.updateOne({userId:userId},{token:refreshToken});
+  }
 }
 
 module.exports = new TokenService();
