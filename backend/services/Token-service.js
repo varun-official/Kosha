@@ -4,7 +4,7 @@ const refreshTokenModel = require("../models/RefreshToken-model");
 class TokenService {
   async generateToken(payload) {
     const accessToken = jwt.sign(payload, process.env.JWT_ACCESS_TOKEN_SECRET, {
-      expiresIn: "1h",
+      expiresIn: "1m",
     });
 
     const refreshToken = jwt.sign(
@@ -44,9 +44,11 @@ class TokenService {
     return token;
   }
 
-  async  updateRefreshToken(userId,refreshToken)
-  {
-    return await refreshTokenModel.updateOne({userId:userId},{token:refreshToken});
+  async updateRefreshToken(userId, refreshToken) {
+    return await refreshTokenModel.updateOne(
+      { userId: userId },
+      { token: refreshToken }
+    );
   }
 }
 
