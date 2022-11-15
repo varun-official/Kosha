@@ -9,6 +9,7 @@ import Activate from "./pages/Activate/Activate";
 import Authenticate from "./pages/Authenticate/Authenticate";
 import Rooms from "./pages/Rooms/Rooms";
 import { useSelector } from "react-redux";
+import { useLoadingWithRefresh } from "./hooks/useLoadingWithRefresh";
 
 // const isAuth = false;
 // const user = {
@@ -16,7 +17,10 @@ import { useSelector } from "react-redux";
 // };
 
 function App() {
-  return (
+  const { loading } = useLoadingWithRefresh();
+  return loading ? (
+    "loading"
+  ) : (
     <BrowserRouter>
       <Navbar />
       <Routes>

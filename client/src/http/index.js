@@ -22,6 +22,7 @@ api.interceptors.response.use(
   },
   async (error) => {
     const originalRequest = error.config;
+    console.log(originalRequest);
 
     if (
       error.response.status === 401 &&
@@ -31,12 +32,9 @@ api.interceptors.response.use(
       originalRequest._isRetry = true;
 
       try {
-        await axios.get(
-          `${process.env.REACT_APP_BASE_URL}/api/refresh`,
-          {
-            withCredentials: true,
-          }
-        );
+        await axios.get(`${process.env.REACT_APP_BASE_URL}/api/refresh`, {
+          withCredentials: true,
+        });
 
         return api.request(originalRequest);
       } catch (error) {

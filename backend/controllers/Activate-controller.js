@@ -13,9 +13,12 @@ class activateController {
     }
 
     //Image base64 to Buffer based
-    const [conversionType, base64Image] = avatar.split(",");
+    // const [conversionType, base64Image] = avatar.split(",");
     // console.log(base64Image);
-    const buffer = Buffer.from(base64Image, "base64");
+    const buffer = Buffer.from(
+      avatar.replace(/^data:image\/(png|jpg|jpeg);base64,/, ""),
+      "base64"
+    );
     const imagePath = `${Date.now()}+${Math.round(Math.random() * 1e9)}.png`;
     try {
       const jimpRes = await Jimp.read(buffer);
