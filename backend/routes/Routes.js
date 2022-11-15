@@ -10,5 +10,6 @@ router.post("/api/send-otp", authController.sendOtp);
 router.post("/api/verify-otp", authController.verifyOtp);
 router.post("/api/activate", AuthMiddleware, activateController.activate);
 router.get("/api/refresh", authController.refresh);
+router.post("/api/logout", AuthMiddleware, authController.logout);
 
 module.exports = router;
