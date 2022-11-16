@@ -10,6 +10,7 @@ import Authenticate from "./pages/Authenticate/Authenticate";
 import Rooms from "./pages/Rooms/Rooms";
 import { useSelector } from "react-redux";
 import { useLoadingWithRefresh } from "./hooks/useLoadingWithRefresh";
+import Loader from "./components/shared/Loader/Loader";
 
 // const isAuth = false;
 // const user = {
@@ -19,7 +20,7 @@ import { useLoadingWithRefresh } from "./hooks/useLoadingWithRefresh";
 function App() {
   const { loading } = useLoadingWithRefresh();
   return loading ? (
-    "loading"
+    <Loader message="Loading, please wait.." />
   ) : (
     <BrowserRouter>
       <Navbar />
