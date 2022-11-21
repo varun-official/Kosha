@@ -17,6 +17,7 @@ const StepOtp = ({ onNext }) => {
   const { phone, hash } = dataFromStore.otp;
 
   const submit = async () => {
+    if (!otp || !phone || !hash) return;
     try {
       const { data } = await verifyOtp({ otp: otp, phone: phone, hash: hash });
       console.log(data);

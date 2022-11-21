@@ -9,13 +9,17 @@ import { setAvathar } from "../../../store/ActivateSlice";
 import { setAuth } from "../../../store/AuthSlice";
 
 import { activate } from "../../../http/index";
+import Loader from "../../../components/shared/Loader/Loader";
 
 const StepAvatar = () => {
   const { name, avatar } = useSelector((state) => state.activate);
   const [image, setImage] = useState("/images/monkey-avatar.png");
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
   const submit = async () => {
+    if (!name || !avatar) return;
+    setLoading(true);
     try {
       const { data } = await activate({ name, avatar });
       if (data.auth) {
@@ -23,6 +27,8 @@ const StepAvatar = () => {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
   const captureImage = async (e) => {
@@ -34,6 +40,8 @@ const StepAvatar = () => {
       dispatch(setAvathar(reader.result));
     };
   };
+
+  if (loading) return <Loader message="Activation in progress" />;
 
   return (
     <>
