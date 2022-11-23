@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./StepAvatar.module.css";
 import Card from "../../../components/shared/Card/Card";
 import Button from "../../../components/shared/Button/Button";
@@ -15,7 +15,14 @@ const StepAvatar = () => {
   const { name, avatar } = useSelector((state) => state.activate);
   const [image, setImage] = useState("/images/monkey-avatar.png");
   const [loading, setLoading] = useState(false);
+  const [unMounted, setUnMounted] = useState(false);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    return () => {
+      setUnMounted(true);
+    };
+  }, []);
 
   const submit = async () => {
     if (!name || !avatar) return;
@@ -23,7 +30,9 @@ const StepAvatar = () => {
     try {
       const { data } = await activate({ name, avatar });
       if (data.auth) {
-        dispatch(setAuth(data));
+        if (!unMounted) {
+          dispatch(setAuth(data));
+        }
       }
     } catch (error) {
       console.log(error);

@@ -20,6 +20,7 @@ const Navbar = () => {
 
   const dispatch = useDispatch();
   const { isAuth } = useSelector((state) => state.auth);
+  const user = { name: "Varun" };
   const logoutUser = async () => {
     try {
       const { data } = await logout();
@@ -34,7 +35,15 @@ const Navbar = () => {
       <Link style={brandStyle} to="/">
         <img src={kosha} className={styles.logo} alt="logo" />
       </Link>
-      {isAuth && <button onClick={logoutUser}>Logout</button>}
+      <div className={styles.navRight}>
+        <h3>{user.name}</h3>
+        <Link to="/">
+          <img src={user.avatar} className={styles.avatar} width="40" height="40" alt="avatar" />
+        </Link>
+        <button className={styles.logout} onClick={logoutUser}>
+          <img src="/images/logout.png" alt="logout" />
+        </button>
+      </div>
     </nav>
   );
 };
