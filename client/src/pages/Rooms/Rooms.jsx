@@ -1,9 +1,80 @@
 /** @format */
 
 import React from "react";
+import RoomCard from "../../components/RoomCard/RoomCard";
 import styles from "./Rooms.module.css";
 
 const Rooms = () => {
+  const rooms = [
+    {
+      id: 1,
+      topic: "room1",
+      spekers: [
+        {
+          id: 1,
+          name: "varun",
+          avatar: "/images/monkey-avatar.png",
+        },
+        {
+          id: 2,
+          name: "vivek",
+          avatar: "/images/monkey-avatar.png",
+        },
+      ],
+      participants: 20,
+    },
+    {
+      id: 2,
+      topic: "room2",
+      spekers: [
+        {
+          id: 1,
+          name: "varun",
+          avatar: "/images/monkey-avatar.png",
+        },
+        {
+          id: 2,
+          name: "vivek",
+          avatar: "/images/monkey-avatar.png",
+        },
+      ],
+      participants: 200,
+    },
+    {
+      id: 3,
+      topic: "room3",
+      spekers: [
+        {
+          id: 1,
+          name: "varun",
+          avatar: "/images/monkey-avatar.png",
+        },
+        {
+          id: 2,
+          name: "vivek",
+          avatar: "/images/monkey-avatar.png",
+        },
+      ],
+      participants: 200,
+    },
+    {
+      id: 4,
+      topic: "room4",
+      spekers: [
+        {
+          id: 1,
+          name: "varun",
+          avatar: "/images/monkey-avatar.png",
+        },
+        {
+          id: 2,
+          name: "vivek",
+          avatar: "/images/monkey-avatar.png",
+        },
+      ],
+      participants: 10,
+    },
+  ];
   return (
     <>
       <div className="container">
@@ -21,6 +92,11 @@ const Rooms = () => {
               <span>Start a room</span>
             </button>
           </div>
+        </div>
+        <div className={styles.roomList}>
+          {rooms.map((room) => (
+            <RoomCard room={room} key={room.id} />
+          ))}
         </div>
       </div>
     </>
