@@ -10,12 +10,12 @@ const RoomCard = ({ room }) => {
       <div className={styles.spekers}>
         <div className={styles.avatars}>
           {room?.spekers.map((speaker) => (
-            <img src={speaker.avatar} alt="speaker" />
+            <img key={speaker.id} src={speaker.avatar} alt="speaker" />
           ))}
         </div>
         <div className={styles.names}>
           {room?.spekers.map((speaker) => (
-            <div className={styles.nameWraper}>
+            <div key={speaker.id} className={styles.nameWraper}>
               <span>{speaker.name}</span>
               <img src="/images/chat-bubble.png" alt="chat-bubble" />
             </div>

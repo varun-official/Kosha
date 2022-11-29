@@ -1,10 +1,12 @@
 /** @format */
 
-import React from "react";
+import React, { useState } from "react";
+import AddRoom from "../../components/AddRoom/AddRoom";
 import RoomCard from "../../components/RoomCard/RoomCard";
 import styles from "./Rooms.module.css";
 
 const Rooms = () => {
+  const [showModal, setShowModal] = useState(false);
   const rooms = [
     {
       id: 1,
@@ -75,6 +77,11 @@ const Rooms = () => {
       participants: 10,
     },
   ];
+   
+  const openModal = () =>{
+    setShowModal(true);
+  }
+
   return (
     <>
       <div className="container">
@@ -87,7 +94,7 @@ const Rooms = () => {
             </div>
           </div>
           <div className={styles.right}>
-            <button className={styles.startButton}>
+            <button onClick={openModal} className={styles.startButton}>
               <img src="/images/add-room-icon.png" alt="add-room" />
               <span>Start a room</span>
             </button>
@@ -99,6 +106,7 @@ const Rooms = () => {
           ))}
         </div>
       </div>
+      {showModal && <AddRoom />}
     </>
   );
 };
