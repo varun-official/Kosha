@@ -1,7 +1,7 @@
 /** @format */
 
 import React, { useState } from "react";
-import AddRoom from "../../components/AddRoom/AddRoom";
+import AddRoomModal from "../../components/AddRoom/AddRoomModal";
 import RoomCard from "../../components/RoomCard/RoomCard";
 import styles from "./Rooms.module.css";
 
@@ -77,10 +77,10 @@ const Rooms = () => {
       participants: 10,
     },
   ];
-   
-  const openModal = () =>{
+
+  const openModal = () => {
     setShowModal(true);
-  }
+  };
 
   return (
     <>
@@ -106,7 +106,7 @@ const Rooms = () => {
           ))}
         </div>
       </div>
-      {showModal && <AddRoom />}
+      {showModal && <AddRoomModal onClose={() => setShowModal(false)} />}
     </>
   );
 };
