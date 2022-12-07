@@ -11,6 +11,7 @@ import Rooms from "./pages/Rooms/Rooms";
 import { useSelector } from "react-redux";
 import { useLoadingWithRefresh } from "./hooks/useLoadingWithRefresh";
 import Loader from "./components/shared/Loader/Loader";
+import Room from "./pages/Room/Room";
 
 // const isAuth = false;
 // const user = {
@@ -57,6 +58,15 @@ function App() {
           element={
             <ProtectedRoute>
               <Rooms />
+            </ProtectedRoute>
+          }
+        ></Route>
+
+        <Route
+          path="/room/:id"
+          element={
+            <ProtectedRoute>
+              <Room />
             </ProtectedRoute>
           }
         ></Route>

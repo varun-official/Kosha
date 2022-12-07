@@ -1,7 +1,16 @@
 /** @format */
-
+const Room = require("../models/Room-model");
 class RoomService {
-  async create() {}
+  async create({ topic, roomType, ownerId }) {
+    const room = await Room.create({
+      topic,
+      roomType,
+      ownerId,
+      speakers: [ownerId],
+    });
+
+    return room;
+  }
 }
 
-module.exports = RoomService;
+module.exports = new RoomService();

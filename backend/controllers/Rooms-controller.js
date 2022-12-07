@@ -1,6 +1,7 @@
 /** @format */
 
 const RoomService = require("../services/Rooms-service");
+const RoomDto = require("../dtos/Room-dto");
 
 class RoomsController {
   async createRoom(req, res) {
@@ -15,6 +16,8 @@ class RoomsController {
       roomType,
       ownerId: req.user._id,
     });
+
+    return res.json(new RoomDto(room));
   }
 }
 
