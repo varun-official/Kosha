@@ -1,12 +1,24 @@
 /** @format */
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import AddRoomModal from "../../components/AddRoom/AddRoomModal";
 import RoomCard from "../../components/RoomCard/RoomCard";
 import styles from "./Rooms.module.css";
-
+import { getAllRooms } from "../../http/index";
+import Loader from "../../components/shared/Loader/Loader";
 const Rooms = () => {
   const [showModal, setShowModal] = useState(false);
+  // const [rooms, setRooms] = useState([]);
+
+  useEffect(() => {
+    const featchRooms = async () => {
+      // setRooms([]);
+      const { data } = await getAllRooms();
+      console.log(data);
+      // setRooms(data);
+    };
+    featchRooms();
+  }, []);
   const rooms = [
     {
       id: 1,
@@ -32,11 +44,6 @@ const Rooms = () => {
         {
           id: 1,
           name: "varun",
-          avatar: "/images/monkey-avatar.png",
-        },
-        {
-          id: 2,
-          name: "vivek",
           avatar: "/images/monkey-avatar.png",
         },
       ],
@@ -68,11 +75,6 @@ const Rooms = () => {
           name: "varun",
           avatar: "/images/monkey-avatar.png",
         },
-        {
-          id: 2,
-          name: "vivek",
-          avatar: "/images/monkey-avatar.png",
-        },
       ],
       participants: 10,
     },
@@ -81,6 +83,8 @@ const Rooms = () => {
   const openModal = () => {
     setShowModal(true);
   };
+
+  // if (rooms == null) return <Loader />;
 
   return (
     <>

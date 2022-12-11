@@ -36,16 +36,18 @@ const Navbar = () => {
       </Link>
       {isAuth && (
         <div className={styles.navRight}>
-          <h3>{user.name}</h3>
+          <h3>{user?.name}</h3>
+
           <Link to="/">
             <img
-              src={user.avatar}
+              src={user.avatar ? user.avatar : "./images/monkey-avatar.png"}
               className={styles.avatar}
               width="40"
               height="40"
               alt="avatar"
             />
           </Link>
+
           <button className={styles.logout} onClick={logoutUser}>
             <img src="/images/logout.png" alt="logout" />
           </button>
