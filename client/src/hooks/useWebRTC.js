@@ -3,6 +3,7 @@
 import { useEffect, useCallback, useRef } from "react";
 import { useStateWithCallback } from "./useStateWithCallback";
 import socketInit from "../socket";
+import { ACTIONS } from "../actions";
 
 export const useWebRTC = (roomId, user) => {
   const [clients, setClients] = useStateWithCallback([]);
@@ -47,7 +48,7 @@ export const useWebRTC = (roomId, user) => {
         }
 
         //socket emit JOIN socket io
-        socket.current.emit("JOIN", {});
+        socket.current.emit(ACTIONS.JOIN, {});
       });
     });
   }, []);
