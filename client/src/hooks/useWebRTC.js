@@ -48,7 +48,7 @@ export const useWebRTC = (roomId, user) => {
         }
 
         //socket emit JOIN socket io
-        socket.current.emit(ACTIONS.JOIN, {});
+        socket.current.emit(ACTIONS.JOIN, {roomId,user});
       });
     });
   }, []);
