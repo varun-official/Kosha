@@ -1,22 +1,56 @@
 /** @format */
 
-import { useRef } from "react";
+import { useEffect, useCallback, useRef } from "react";
 import { useStateWithCallback } from "./useStateWithCallback";
-const users = [
-  {
-    id: 1,
-    name: "Varun",
-  },
-  {
-    id: 2,
-    name: "Vivek",
-  },
-];
+import socketInit from "../socket";
+
 export const useWebRTC = (roomId, user) => {
-  const [clients, setClients] = useStateWithCallback(users);
+  const [clients, setClients] = useStateWithCallback([]);
   const audioElements = useRef({});
   const connections = useRef({});
   const localMediaStreams = useRef(null);
+  const socket = useRef(null);
+  useEffect(() => {
+    socket.current = socketInit();
+  }, []);
 
-  return { clients };
+  const provideRef = (instance, userId) => {
+    audioElements.current[userId] = instance;
+  };
+
+  const addNewClients = useCallback(
+    (newClients, cb) => {
+      const lookingFor = clients.find((client) => client.id === newClients.id);
+
+      if (lookingFor === undefined) {
+        setClients((existingClients) => [...existingClients, newClients], cb);
+      }
+    },
+    [clients, setClients]
+  );
+
+  //capture media
+
+  useEffect(() => {
+    const startCapture = async () => {
+      localMediaStreams.current = await navigator.mediaDevices.getUserMedia({
+        audio: true,
+      });
+    };
+
+    startCapture().then(() => {
+      addNewClients(user, () => {
+        const localElement = audioElements.current[user.id];
+        if (localElement) {
+          localElement.volume = 0;
+          localElement.srcObject = localMediaStreams.current;
+        }
+
+        //socket emit JOIN socket io
+        socket.current.emit("JOIN", {});
+      });
+    });
+  }, []);
+
+  return { clients, provideRef };
 };
