@@ -52,6 +52,13 @@ export const useWebRTC = (roomId, user) => {
         socket.current.emit(ACTIONS.JOIN, { roomId, user });
       });
     });
+
+    return () => {
+      localMediaStreams.current.getTracks().forEach((track) => {
+        track.stop();
+      });
+      socket.current.emit(ACTIONS.LEAVE, { roomId });
+    };
   }, []);
 
   useEffect(() => {
@@ -101,24 +108,76 @@ export const useWebRTC = (roomId, user) => {
       });
 
       // Create offer
-      if (createOffer){
-        const offer = await connections.current[peerId].createOffer()
+      if (createOffer) {
+        const offer = await connections.current[peerId].createOffer();
 
         //send offer to another client
-        socket.current.emit(ACTIONS.RELAY_SDP,{
+        socket.current.emit(ACTIONS.RELAY_SDP, {
           peerId,
-          sessionDescription: offer
-        })
+          sessionDescription: offer,
+        });
       }
     };
 
-    
-
     socket.current.on(ACTIONS.ADD_PEER, handelNewPeer);
 
-    return ()=>{
+    return () => {
       socket.current.off(ACTIONS.ADD_PEER);
-    }
+    };
+  }, []);
+
+  useEffect(() => {
+    socket.current.on(ACTIONS.ICE_CANDIDATE, ({ peerId, icecandidate }) => {
+      if (icecandidate) {
+        connections.current[peerId].addIceCandidate(icecandidate);
+      }
+    });
+    return () => {
+      socket.current.off(ACTIONS.ICE_CANDIDATE);
+    };
+  }, []);
+
+  useEffect(() => {
+    const handelRemoteSDP = async ({
+      peerId,
+      sessionDescription: remoteSessionDescription,
+    }) => {
+      connections.current[peerId].setRemoteDescription(
+        new RTCSessionDescription(remoteSessionDescription)
+      );
+
+      if (remoteSessionDescription.type === "offer") {
+        const connection = connections.current[peerId];
+        const answer = await connection.createAnswer();
+
+        connection.setLocalDescription(answer);
+
+        socket.current.emit(ACTIONS.RELAY_SDP, {
+          peerId,
+          sessionDescription: answer,
+        });
+      }
+    };
+
+    socket.current.on(ACTIONS.SESSION_DESCRIPTION, handelRemoteSDP);
+    return () => {
+      socket.current.off(ACTIONS.SESSION_DESCRIPTION);
+    };
+  }, []);
+
+  useEffect(() => {
+    const handelRemovePeer = async ({ peerId, userId }) => {
+      if (connections.current[peerId]) {
+        connections.current[peerId].close();
+      }
+      delete connections.current[peerId];
+      delete audioElements.current[peerId];
+      setClients((list) => list.filter((client) => client.id !== userId));
+    };
+    socket.current.on(ACTIONS.REMOVE_PEER, handelRemovePeer);
+    return () => {
+      socket.current.off(ACTIONS.REMOVE_PEER);
+    };
   }, []);
 
   return { clients, provideRef };
