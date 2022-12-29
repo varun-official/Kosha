@@ -76,7 +76,7 @@ export const useWebRTC = (roomId, user) => {
 
       //handel new ice candidate
       connections.current[peerId].onicecandidate = (event) => {
-        socket.current.emmit(ACTIONS.RELAY_ICE, {
+        socket.current.emit(ACTIONS.RELAY_ICE, {
           peerId,
           icecandidate: event.candidate,
         });
@@ -110,6 +110,7 @@ export const useWebRTC = (roomId, user) => {
       // Create offer
       if (createOffer) {
         const offer = await connections.current[peerId].createOffer();
+        await connections.current[peerId].setLocalDescription(offer);
 
         //send offer to another client
         socket.current.emit(ACTIONS.RELAY_SDP, {
